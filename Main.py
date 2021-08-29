@@ -4,8 +4,9 @@ import datetime
 import mouse
 import time
 from pynput.mouse import Button, Controller
+import schedule
 
-def aula():
+def EntrarAula():
     mouse1 = Controller()
 
     #pega o driver e acessa o sistema
@@ -14,7 +15,6 @@ def aula():
 
     #clica em "Acesso para alunos"
     button1 = driver.find_element_by_id('access-student')
-    print("Botão: ", button1.get_attribute('innerHTML'))
     button1.click()
 
     #realiza o login
@@ -24,7 +24,7 @@ def aula():
     field3 = driver.find_element_by_id('password-student')
     button2 = driver.find_element_by_id('btn-login-student')
 
-    #coloca a/s informações nos campos correspondentes e clica em login
+    #coloca as informações nos campos correspondentes e clica em login
     field1.send_keys("000110121115")
     field2.send_keys("5")
     field3.send_keys("7fmdfa0h")
@@ -41,10 +41,30 @@ def aula():
     mouse1.release(Button.left)
 
 
-#data = datetime.datetime.now()
-aula()
+#Verifica o horário a cada minuto
+data = datetime.datetime.now()
+horario = data.strftime("%H%M")
+
+def VerificaHorario():
+    if(datetime.datetime.today().weekday() == 5):
+        if(data.strftime("%H%M") == "2101"):
+            EntrarAula()
+        else:
+            print("Not yet")
+
+schedule.every(1).minutes.do(VerificaHorario)
+
+while True:
+    schedule.run_pending()
+    time.sleep(60)
+    data = datetime.datetime.now()
+
+
+
+#Ferramentas
+#verifica a posição do mouse
 #while(t < 1):
     #time.sleep(4)
     #print(mouse.get_position())
 
-#print(data.strftime("%H%M"))
+
