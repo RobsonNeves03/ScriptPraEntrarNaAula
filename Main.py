@@ -25,9 +25,9 @@ def EntrarAula():
     button2 = driver.find_element_by_id('btn-login-student')
 
     #coloca as informações nos campos correspondentes e clica em login
-    field1.send_keys("000110121115")
-    field2.send_keys("5")
-    field3.send_keys("7fmdfa0h")
+    field1.send_keys("") #RA
+    field2.send_keys("") #Dígito do RA
+    field3.send_keys("") #Código de acesso do CMSP Web
     button2.click()
 
     #entra na aula
